@@ -1,19 +1,19 @@
-const User = require("../model/User");
+const Title = require("../model/Title");
 
-//get all users
-exports.getAllUsers = async(req, res) =>{
+//get all titles
+exports.getAllTitles = async(req, res) =>{
     try {
-        let users = await User.find();
-        if(users.length===0){
+        let titles = await Title.find();
+        if(titles.length===0){
             return res.status(404).json({
                 success: false,
-                message: "No user Found",
+                message: "No title Found",
             })
         }
         res.status(200).json({
             success: true,
-            message: "User Found",
-            users
+            message: "Title Found",
+            titles
         });
     } catch (error) {
         res.status(500).json({
@@ -24,19 +24,19 @@ exports.getAllUsers = async(req, res) =>{
     }
 }
 
-//get single user
-exports.getUser = async(req, res) => {
+//get single title
+exports.getTitle = async (req, res) => {
     try {
         let id = {_id: req.params.id}
-        let user = await User.findOne(id);
-        if(!user) return res.status(404).json({
+        let title = await Title.findOne(id);
+        if(!title) return res.status(404).json({
             success: false,
-            message: "User not found"
+            message: "Title not found"
         });
         res.status(200).json({
             success: true,
-            message: "User found",
-            user,
+            message: "Title found",
+            title,
         })
 
     } catch (error) {
@@ -48,19 +48,19 @@ exports.getUser = async(req, res) => {
     }
 }
 
-//create user
-exports.createUser = async(req, res) => {
+//create title
+exports.createTitle = async(req, res) => {
    try {
-    let user = await req.body;
-    let created = await User.create(user);
+    let title = await req.body;
+    let created = await Title.create(title);
     if(!created) return res.status(400).json({
         success: false,
-        message: "User creation failed!"
+        message: "Title creation failed!"
     });
     res.status(201).json({
         success: true,
         message: "User created successfully",
-        user: created
+        title: created
     })
    } catch (error) {
     res.status(500).json({
@@ -70,22 +70,22 @@ exports.createUser = async(req, res) => {
    });
 }}
 
-//update user
-exports.updateUser = async (req, res) => {
+//update title
+exports.updateTitle = async (req, res) => {
     try {
         let id = {_id : req.params.id};
-        let user = await req.body;
-        let update = await User.findOneAndUpdate(id, user, {new: true});
+        let title = await req.body;
+        let update = await Title.findOneAndUpdate(id, title, {new: true});
     
         if(!update) return res.status(400).json({
             success: false,
-            message: "User not updated"
+            message: "Title not updated"
         });
     
         res.status(200).json({
             success: true,
-            message: "User updated",
-            user: update
+            message: "Title updated",
+            title: update
         }) 
     } catch (error) {
         res.status(500).json({
@@ -97,21 +97,21 @@ exports.updateUser = async (req, res) => {
     
 }
 
-//delete user
-exports.deleteUser = async (req, res) => {
+//delete title
+exports.deleteTitle = async (req, res) => {
     try {
         let id = {_id : req.params.id};
-        let deleted = await User.findOneAndRemove(id);
+        let deleted = await Title.findOneAndRemove(id);
     
         if(!deleted) return res.status(400).json({
             success: false,
-            message: "User not deleted"
+            message: "Title not deleted"
         });
     
         res.status(200).json({
             success: true,
-            message: "User successfully deleted",
-            user: deleted
+            message: "Title successfully deleted",
+            title: deleted
         }) 
     } catch (error) {
         res.status(500).json({

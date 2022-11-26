@@ -1,7 +1,7 @@
 const Title = require("../model/Title");
 
 //get all titles
-exports.getAllTitles = async(req, res) =>{
+exports.getAllTitles = async (req, res) =>{
     try {
         let titles = await Title.find();
         if(titles.length===0){
@@ -49,7 +49,7 @@ exports.getTitle = async (req, res) => {
 }
 
 //create title
-exports.createTitle = async(req, res) => {
+exports.createTitle = async (req, res) => {
    try {
     let title = await req.body;
     let created = await Title.create(title);
